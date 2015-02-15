@@ -18,8 +18,6 @@ public class DeletePartCommand {
 					.prepareStatement("DELETE FROM PARTS WHERE modelNum = ?");
 			stmt.setString(1, modelNum);
 			ResultSet rs = stmt.executeQuery();
-			return "Part " + modelNum + " deleted.";
-
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
