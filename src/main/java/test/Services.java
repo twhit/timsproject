@@ -1,0 +1,174 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import test.Part;
+import test.CreatePartCommand;
+import test.GetPartCommand;
+import test.ListPartsCommand;
+import test.UpdatePartCommand;
+import test.Constants;
+import test.DeletePartCommand;
+
+@Path("part")
+public class Services {
+	ObjectMapper mapper = new ObjectMapper();
+
+	// Browse all parts
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response browseSongs(@QueryParam("offset") int offset,
+			@QueryParam("count") int count) {
+		ListPartsCommand command = new ListPartsCommand();
+		ArrayList<Part> list = command.execute();
+		HashMap<String, Object> hm = new HashMap<String, Object>();
+		hm.put(Constants.Pagination.DATA, list);
+		hm.put(Constants.Pagination.OFFSET, offset);
+		hm.put(Constants.Pagination.COUNT, count);
+		String partString = null;
+		try {
+			partString = mapper.writeValueAsString(hm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(200).entity(partString).build();
+	}
+
+	// get part by model number
+	@GET
+	@Path("{modelNum}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getSong(@PathParam("modelNum") String modelNum) {
+		GetPartCommand command = new GetPartCommand();
+		String partString = null;
+		try {
+			partString = mapper.writeValueAsString(command.execute(modelNum));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(200).entity(partString).build();
+	}
+
+	// Add a part
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN  })
+	public Response createSongs(String payload) {
+		CreatePartCommand create = new CreatePartCommand();
+		Part p = null;
+		String i = "";
+		try {
+			p = mapper.readValue(payload, Part.class);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Response.status(400).entity("could not read string").build();
+		}
+		try {
+			i = create.execute(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Response.status(500).build();
+		}
+		return Response.status(200).entity(i).build();
+	}
+	// Update a part
+	@POST
+	@Path("{modelNum}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN  })
+	public Response updateSongs(String payload, @PathParam("modelNum") String modelNum) {
+		UpdatePartCommand update = new UpdatePartCommand();
+		Part p = null;
+		try {
+			p = mapper.readValue(payload, Part.class);
+			p.setModelNum(modelNum);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Response.status(400).entity("could not read string").build();
+		}
+		try {
+			update.execute(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Response.status(500).build();
+		}
+		return Response.status(200).build();
+	}
+	
+	// Search parts by name by adding /name/{name} to url
+	
+	@GET
+	@Path("name/{name}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPartsByName(@PathParam("name") String name, @QueryParam("offset") int offset,
+			@QueryParam("count") int count) {
+		ListPartsCommand command = new ListPartsCommand();
+		ArrayList<Part> list = command.executeByName(name);
+		HashMap<String, Object> hm = new HashMap<String, Object>();
+		hm.put(Constants.Pagination.DATA, list);
+		hm.put(Constants.Pagination.OFFSET, offset);
+		hm.put(Constants.Pagination.COUNT, count);
+		String partString = null;
+		try {
+			partString = mapper.writeValueAsString(hm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(200).entity(partString).build();
+	}
+	
+	// Added by Tim for homework. Search songs by artist by adding /artist/{artist} to url.
+	
+	@GET
+	@Path("type/{type}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPartsByType(@PathParam("type") String type, @QueryParam("offset") int offset,
+			@QueryParam("count") int count) {
+		ListPartsCommand command = new ListPartsCommand();
+		ArrayList<Part> list = command.executeByType(type);
+		HashMap<String, Object> hm = new HashMap<String, Object>();
+		hm.put(Constants.Pagination.DATA, list);
+		hm.put(Constants.Pagination.OFFSET, offset);
+		hm.put(Constants.Pagination.COUNT, count);
+		String partString = null;
+		try {
+			partString = mapper.writeValueAsString(hm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(200).entity(partString).build();
+	}
+	
+	
+	// Added by Tim for homework. Delete a song.
+	
+	@DELETE
+	@Path("{modelNum}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+	public Response deletePart(@PathParam("modelNum") String modelNum) {
+		DeletePartCommand command = new DeletePartCommand();
+		String s = "";
+		try {
+			s = command.execute(modelNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Response.status(500).build();
+		}
+		return Response.status(200).entity(s).build();
+	}
+}
