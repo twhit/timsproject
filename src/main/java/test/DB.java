@@ -35,7 +35,7 @@ public class DB {
 
 	public void saveOAuthToken(String otoken, String user, String app,
 			String secret) {
-
+		System.out.println(otoken);
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
