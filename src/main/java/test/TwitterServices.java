@@ -20,8 +20,8 @@ import test.DB;
 
 @Path("/twitter")
 public class TwitterServices {
-	String consumerKey = "";
-	String consumerSecret = "";
+	String consumerKey = "9g6hAg3P1oQDoDtGeYeC5Tw23";
+	String consumerSecret = "HIwWoF3U2b7kiG2SW6OFbP6hOpyI1SYsCCBhXvIdU012TnushT";
 
 	@GET
 	@Path("/request")
