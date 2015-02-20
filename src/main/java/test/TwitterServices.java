@@ -20,8 +20,8 @@ import test.DB;
 
 @Path("/twitter")
 public class TwitterServices {
-	String consumerKey = "";
-	String consumerSecret = "";
+	String consumerKey = "jMYY6SixSlTYpzzIZFQaqQpZi";
+	String consumerSecret = "fzAuRfDH4nVHdc4vk9FjJmZ0UUKtujmcZ4HWMS7iBjcVdbDL3b";
 
 	@GET
 	@Path("/request")
@@ -37,14 +37,14 @@ public class TwitterServices {
 
 		try {
 			RequestToken requestToken = twitter.getOAuthRequestToken();
-			
+			System.out.println("In here");
 			request.getSession().setAttribute("requestToken", requestToken);
 			request.getSession().setAttribute("username", user);
 			response.sendRedirect(requestToken.getAuthorizationURL());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "";
+		return "fuck";
 	}
 
 	@GET
