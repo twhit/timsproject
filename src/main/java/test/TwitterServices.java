@@ -44,7 +44,7 @@ public class TwitterServices {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "fuck";
+		return "";
 	}
 
 	@GET
