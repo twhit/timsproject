@@ -81,7 +81,7 @@ public class TwitterServices {
 		try {
 			DB db = new DB();
 			user = (String) request.getSession().getAttribute("username");
-			db.saveOAuthToken(accessToken.getToken(), user, "twitter",
+			db.saveOAuthToken(accessToken.getToken(), user, "testapp55_55",
 					accessToken.getTokenSecret());
 		} catch (Exception e) {
 			System.out.println("Could not store access token to DB");
@@ -114,7 +114,7 @@ public class TwitterServices {
 		}
 		try {
 			DB db = new DB();
-			accessToken = db.getOAuthToken(user, "twitter");
+			accessToken = db.getOAuthToken(user, "testapp55_55");
 			twitter.setOAuthAccessToken(accessToken);
 		} catch (Exception e1) {
 			e1.printStackTrace();
