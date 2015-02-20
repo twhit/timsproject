@@ -27,7 +27,7 @@ import test.DeletePartCommand;
 @Path("part")
 public class Services {
 	ObjectMapper mapper = new ObjectMapper();
-
+	
 	// Browse all parts
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -131,8 +131,6 @@ public class Services {
 		return Response.status(200).entity(partString).build();
 	}
 	
-	// Added by Tim for homework. Search songs by artist by adding /artist/{artist} to url.
-	
 	@GET
 	@Path("type/{type}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -152,9 +150,6 @@ public class Services {
 		}
 		return Response.status(200).entity(partString).build();
 	}
-	
-	
-	// Added by Tim for homework. Delete a song.
 	
 	@DELETE
 	@Path("{modelNum}")
