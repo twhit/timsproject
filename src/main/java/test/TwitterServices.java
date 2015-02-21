@@ -150,6 +150,7 @@ public class TwitterServices {
 			DB db = new DB();
 			ArrayList<String> users = db.getUserList();
 			for (int i = 0; i < users.size(); i++){
+				System.out.println("Here: " + users.get(i));
 				accessToken = db.getOAuthToken(users.get(i), "twitter");
 				twitter.setOAuthAccessToken(accessToken);
 				try {
