@@ -36,7 +36,7 @@ public class DB {
 
 	public void saveOAuthToken(String otoken, String user, String app,
 			String secret) {
-		System.out.println("in here");
+	
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection.prepareStatement("INSERT INTO TOKENS(oauth, username, application, secret) VALUES(?, ?, ?, ?)");
