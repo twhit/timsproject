@@ -105,7 +105,6 @@ public class TwitterServices {
 	@Path("/status")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String success(@QueryParam("user") String user) {
-		System.out.println("In success");
 		Twitter twitter = new TwitterFactory().getInstance();
 		Status tweetStatus = null;
 		AccessToken accessToken = null;
@@ -135,21 +134,40 @@ public class TwitterServices {
 	}
 	
 	@GET
-	@Path("/allstatus")
+	@Path("/status")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String postAll() {
-		String result = "";
-		System.out.println("in postAll");
+	public String success() {
+		Twitter twitter = new TwitterFactory().getInstance();
+		Status tweetStatus = null;
+		AccessToken accessToken = null;
+		
+		try {
+			twitter.setOAuthConsumer(consumerKey, consumerSecret);
+		} catch (Exception e) {
+			System.out.println("The OAuthConsumer has likely already been set");
+		}
 		try {
 			DB db = new DB();
 			ArrayList<String> users = db.getUserList();
-			for(int i = 0; i < users.size(); i++){
-				System.out.println(users.get(i));
-				result += success(users.get(i)) + "\n";
-			}
+			for (int i = 0; i < users.size(); i++){
+				accessToken = db.getOAuthToken(users.get(i), "twitter");
+				twitter.setOAuthAccessToken(accessToken);
+				try {
+					tweetStatus = twitter.updateStatus("Status Update from Heroku"
+						+ System.currentTimeMillis());
+					} catch (TwitterException e) {
+						e.printStackTrace();
+					}
+				}	
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		return result;
-	} 
+		
+		
+		if (tweetStatus != null)
+			return "Check your Twitter, your tweet has been posted:"
+					+ tweetStatus.getText();
+		else
+			return "BOO! didn't work";
+	}
 }
