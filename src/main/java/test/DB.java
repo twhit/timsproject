@@ -38,8 +38,7 @@ public class DB {
 		System.out.println("in here");
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			PreparedStatement stmt = connection
-					.prepareStatement("INSERT INTO TOKENS(oauth, username, application, secret) VALUES(?, ?, ?, ?)");
+			PreparedStatement stmt = connection.prepareStatement("INSERT INTO TOKENS(oauth, username, application, secret) VALUES(?, ?, ?, ?)");
 			stmt.setString(1, otoken);
 			stmt.setString(2, user);
 			stmt.setString(3, app);
@@ -47,8 +46,10 @@ public class DB {
 			stmt.executeUpdate();
 
 		} catch (URISyntaxException e) {
+			System.out.println("in here 2");
 			e.printStackTrace();
 		} catch (SQLException e) {
+			System.out.println("in here 3");
 			e.printStackTrace();
 		}
 	}
