@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import twitter4j.auth.AccessToken;
 import test.ConnectionProvider;
@@ -52,6 +53,25 @@ public class DB {
 			System.out.println("in here 3");
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<String> getUserList() {
+		ArrayList<String> users = new ArrayList<String>();
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+			PreparedStatement stmt = connection
+					.prepareStatement("SELECT username from TOKENS");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String s = rs.getString("username");
+				users.add(s);
+			}
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return users; 
 	}
 
 }

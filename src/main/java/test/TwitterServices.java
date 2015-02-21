@@ -1,5 +1,7 @@
 package test;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -15,7 +17,6 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-
 import test.DB;
 
 @Path("/twitter")
@@ -81,7 +82,7 @@ public class TwitterServices {
 		try {
 			DB db = new DB();
 			user = (String) request.getSession().getAttribute("username");
-			db.saveOAuthToken(accessToken.getToken(), user, "testapp55_55",
+			db.saveOAuthToken(accessToken.getToken(), user, "twitter",
 					accessToken.getTokenSecret());
 		} catch (Exception e) {
 			System.out.println("Could not store access token to DB");
@@ -114,7 +115,7 @@ public class TwitterServices {
 		}
 		try {
 			DB db = new DB();
-			accessToken = db.getOAuthToken(user, "testapp55_55");
+			accessToken = db.getOAuthToken(user, "twitter");
 			twitter.setOAuthAccessToken(accessToken);
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -131,4 +132,21 @@ public class TwitterServices {
 		else
 			return "BOO! didn't work";
 	}
+	
+	@GET
+	@Path("/allstatus")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String postAll() {
+		String result = "";
+		try {
+			DB db = new DB();
+			ArrayList<String> users = db.getUserList();
+			for(int i = 0; i < users.size(); i++){
+				result += success(users.get(i)) + "\n";
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		return result;
+	} 
 }
