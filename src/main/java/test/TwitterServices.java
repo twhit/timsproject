@@ -134,7 +134,7 @@ public class TwitterServices {
 	}
 	
 	@GET
-	@Path("/status")
+	@Path("/allstatus")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String success() {
 		Twitter twitter = new TwitterFactory().getInstance();
