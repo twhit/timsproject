@@ -139,6 +139,7 @@ public class TwitterServices {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String postAll() {
 		String result = "";
+		System.out.println("in postAll");
 		try {
 			DB db = new DB();
 			ArrayList<String> users = db.getUserList();
