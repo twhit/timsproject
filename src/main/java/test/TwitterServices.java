@@ -104,7 +104,7 @@ public class TwitterServices {
 	@GET
 	@Path("/status")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String success(@QueryParam("user") String user) {
+	public String status(@QueryParam("user") String user) {
 		Twitter twitter = new TwitterFactory().getInstance();
 		Status tweetStatus = null;
 		AccessToken accessToken = null;
@@ -136,7 +136,7 @@ public class TwitterServices {
 	@GET
 	@Path("/allstatus")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String status() {
+	public String allstatus() {
 		Twitter twitter = new TwitterFactory().getInstance();
 		Status tweetStatus = null;
 		AccessToken accessToken = null;
