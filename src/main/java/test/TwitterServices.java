@@ -105,6 +105,7 @@ public class TwitterServices {
 	@Path("/status")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String success(@QueryParam("user") String user) {
+		System.out.println("In success");
 		Twitter twitter = new TwitterFactory().getInstance();
 		Status tweetStatus = null;
 		AccessToken accessToken = null;
@@ -142,6 +143,7 @@ public class TwitterServices {
 			DB db = new DB();
 			ArrayList<String> users = db.getUserList();
 			for(int i = 0; i < users.size(); i++){
+				System.out.println(users.get(i));
 				result += success(users.get(i)) + "\n";
 			}
 		} catch (Exception e1) {
