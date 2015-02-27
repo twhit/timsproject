@@ -2,6 +2,19 @@
 
 Notes:
 
+2015-02-27: Did a new commit, although not much has actually changed...
+
+Spent some time trying to figure out the error with uploading image files to
+my database. The POST calls work, but the file is being sent as content-size 0. I
+haven't figured it out yet, so I ended up putting the code back the way it was.
+
+I also started a new repo called pytest. I added the pydev plugin and set up
+a test project to link to my main java project. I'm not completely sure how that works 
+yet, but that will be next after the image db issue is resolved.
+
+I found a python lib that does neural network and machine learning stuff, but I'm
+having issues with the installation. Will revisit that later.
+
 2015-02-15:The project is set up with basic REST APIs to interact with a "parts" table. 
 Assuming there will be part names, model numbers, types, etc., associated with the parts
 represented in the images being processed, I created the parts table to hold whatever 
