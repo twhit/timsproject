@@ -17,11 +17,12 @@ public class SaveFileToDBCommand {
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
 			IOUtils.copy(fis, output);
 			byte[] filecontent = output.toByteArray();
+			System.out.println(filecontent.length);
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
-					.prepareStatement("INSERT INTO IMAGES VALUES (?, ?)");
+					.prepareStatement("INSERT INTO IMAGES (filename, file) VALUES (?, ?)");
 			stmt.setString(1, fileName);
-			stmt.setBinaryStream(2, fis, l);
+			stmt.setBytes(2, filecontent);
 			stmt.executeUpdate();
 
 		} catch (Exception e) {
