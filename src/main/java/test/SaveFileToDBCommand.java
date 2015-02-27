@@ -21,7 +21,7 @@ public class SaveFileToDBCommand {
 			PreparedStatement stmt = connection
 					.prepareStatement("INSERT INTO IMAGES VALUES (?, ?)");
 			stmt.setString(1, fileName);
-			stmt.setBytes(2, filecontent);
+			stmt.setBinaryStream(2, fis, l);
 			stmt.executeUpdate();
 
 		} catch (Exception e) {
