@@ -1,11 +1,15 @@
 test\ConnectionProvider.class
+test\GetFileFromPOSTGRESCommand.class
 test\ListPartsCommand.class
 test\Constants$Pagination.class
 test\Constants.class
 launch\Main.class
 test\Services.class
+test\UploadFile.class
+test\Part.class
+test\SaveFileToDBCommand.class
 test\DeletePartCommand.class
 test\UpdatePartCommand.class
 test\CreatePartCommand.class
-test\Part.class
+test\ImageServices.class
 test\GetPartCommand.class
