@@ -2,6 +2,7 @@ test\ConnectionProvider.class
 test\GetFileFromPOSTGRESCommand.class
 test\ListPartsCommand.class
 test\Constants$Pagination.class
+test\JythonScriptReader.class
 test\Constants.class
 launch\Main.class
 test\Services.class

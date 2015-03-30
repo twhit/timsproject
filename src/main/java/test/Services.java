@@ -17,6 +17,9 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import test.Part;
@@ -27,6 +30,9 @@ import test.UpdatePartCommand;
 import test.Constants;
 import test.DeletePartCommand;
 
+import org.python.util.PythonInterpreter; 
+import org.python.core.*; 
+
 @Path("part")
 public class Services {
 	ObjectMapper mapper = new ObjectMapper();
@@ -36,6 +42,9 @@ public class Services {
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response browseSongs(@QueryParam("offset") int offset,
 			@QueryParam("count") int count) {
+		
+		//PythonInterpreter python = new PythonInterpreter();
+		//python.execfile("lists.py");
 		ListPartsCommand command = new ListPartsCommand();
 		ArrayList<Part> list = command.execute();
 		HashMap<String, Object> hm = new HashMap<String, Object>();
@@ -50,7 +59,8 @@ public class Services {
 		}
 		return Response.status(200).entity(partString).build();
 	}
-
+	
+	
 	// get part by model number
 	@GET
 	@Path("{modelNum}")
@@ -170,7 +180,6 @@ public class Services {
 		return Response.status(200).entity(s).build();
 	}
 	
-	 
 }
 
 

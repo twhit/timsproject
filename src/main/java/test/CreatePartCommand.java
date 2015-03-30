@@ -16,11 +16,12 @@ public class CreatePartCommand {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
-					.prepareStatement("INSERT INTO PARTS(name, type, modelNum) VALUES(?, ?, ?)");
+					.prepareStatement("INSERT INTO PARTS(name, type, modelNum, filename) VALUES(?, ?, ?, ?)");
 			stmt.setString(1, p.getName());
 			stmt.setString(2, p.getType());
 			stmt.setString(3, p.getModelNum());
-			ResultSet rs = stmt.executeQuery();
+			stmt.setString(4, p.getFileName());
+			stmt.executeQuery();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

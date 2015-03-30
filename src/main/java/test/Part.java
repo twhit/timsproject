@@ -19,7 +19,14 @@ public class Part {
 	public void setModelNum(String modelNum) {
 		this.modelNum = modelNum;
 	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	String name;
 	String type;
 	String modelNum;
+	String fileName;
 }
