@@ -27,9 +27,7 @@ public class UploadTestPhoto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		File tempfolder = new File("temp/");
-		File[] tempFiles = tempfolder.listFiles();
-		for(File f : tempFiles) f.delete();
+		
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		
