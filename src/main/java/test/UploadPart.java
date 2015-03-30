@@ -57,20 +57,22 @@ public class UploadPart extends HttpServlet {
 			        // Process form file field (input type="file").
 			        fileName = FilenameUtils.getName(item.getName());
 			        stream = item.getInputStream();
+			        
 			    }
 			}
 			//String msg = FaceFinder.findFace(fileName, stream, 1);String uploadedFileLocation = "/images/" + fileDetail.getFileName();
 			 
 			// save it
-			String uploadedFileLocation = "images/" + fileName;
+		//	String uploadedFileLocation = "images/" + fileName;
 			
-			writeToFile(stream, uploadedFileLocation);
+		//	writeToFile(stream, uploadedFileLocation);
 
 			Part p = new Part();
-			p.setFileName(fileName);
+			p.setFile(stream);
 			p.setName(partName);
 			p.setType(partType);
 			p.setModelNum(partModel);
+			p.setFileName(fileName);
 			
 			CreatePartCommand cmd = new CreatePartCommand();
 			cmd.execute(p);

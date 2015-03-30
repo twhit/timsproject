@@ -46,11 +46,8 @@ public class UploadTestPhoto extends HttpServlet {
 			        stream = item.getInputStream();
 			}
 			
-			String uploadedFileLocation = "temp/" + fileName;
 			
-			writeToFile(stream, uploadedFileLocation);
-			
-			String msg = PartFinder.findPart();
+			String msg = PartFinder.findPart(fileName, stream);
 			
 		} catch (FileUploadException e) {
 			// TODO Auto-generated catch block

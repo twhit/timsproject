@@ -12,7 +12,7 @@ import test.ConnectionProvider;
 
 public class SaveFileToDBCommand {
 	
-	public void execute(String fileName, InputStream fis, String personName) {
+	public void execute(String fileName, InputStream fis, String partName, String partType, String partModel) {
 
 		try {
 			ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -21,11 +21,13 @@ public class SaveFileToDBCommand {
 			System.out.println(filecontent.length);
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
-					.prepareStatement("INSERT INTO PERSON (filename, file, filesize, name) VALUES (?, ?, ?, ?)");
+					.prepareStatement("INSERT INTO Parts (filename, file, filesize, name, type, model) VALUES (?, ?, ?, ?, ?, ?)");
 			stmt.setString(1, fileName);
 			stmt.setBytes(2, filecontent);
 			stmt.setLong(3, filecontent.length);
-			stmt.setString(4, personName);
+			stmt.setString(4, partName);
+			stmt.setString(5, partType);
+			stmt.setString(6, partModel);
 			stmt.executeUpdate();
 
 		} catch (Exception e) {
