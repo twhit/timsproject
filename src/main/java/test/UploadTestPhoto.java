@@ -18,6 +18,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.FileUtils;
 import javax.servlet.annotation.WebServlet;
+import org.springframework.*;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class UploadFile
@@ -55,28 +58,5 @@ public class UploadTestPhoto extends HttpServlet {
                     request, response);
 
     }
-
-//save uploaded file to new location
-		private void writeToFile(InputStream uploadedInputStream,
-			String uploadedFileLocation) {
-	 
-			try {
-				OutputStream out = new FileOutputStream(new File(
-						uploadedFileLocation));
-				int read = 0;
-				byte[] bytes = new byte[1024];
-	 
-				out = new FileOutputStream(new File(uploadedFileLocation));
-				while ((read = uploadedInputStream.read(bytes)) != -1) {
-					out.write(bytes, 0, read);
-				}
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-	 
-				e.printStackTrace();
-			}
-	 
-		}
 }
 		

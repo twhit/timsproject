@@ -91,7 +91,6 @@ public static String findPart(String fileName, InputStream fis) throws IOExcepti
 	//imgData = IOUtils.toByteArray(fis);
 	BufferedImage imag=ImageIO.read(new ByteArrayInputStream(IOUtils.toByteArray(fis)));
 	ImageIO.write(imag, "png", new File("temp.png"));
-	
 	MBFImage query = ImageUtilities.createMBFImage(imag, true);
 	MBFImage target;
 	DoGSIFTEngine engine = new DoGSIFTEngine();

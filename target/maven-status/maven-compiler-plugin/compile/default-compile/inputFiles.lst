@@ -1,7 +1,8 @@
 C:\Users\Tim\workspace\timsproject\src\main\java\test\Constants.java
-C:\Users\Tim\workspace\timsproject\src\main\java\test\UploadFile.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\ListPartsCommand.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\ConnectionProvider.java
+C:\Users\Tim\workspace\timsproject\src\main\java\test\UploadPart.java
+C:\Users\Tim\workspace\timsproject\src\main\java\test\PartFinder.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\UpdatePartCommand.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\DeletePartCommand.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\GetPartCommand.java
@@ -12,4 +13,4 @@ C:\Users\Tim\workspace\timsproject\src\main\java\launch\Main.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\GetFileFromPOSTGRESCommand.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\ImageServices.java
 C:\Users\Tim\workspace\timsproject\src\main\java\test\CreatePartCommand.java
-C:\Users\Tim\workspace\timsproject\src\main\java\test\JythonScriptReader.java
+C:\Users\Tim\workspace\timsproject\src\main\java\test\UploadTestPhoto.java
