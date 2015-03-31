@@ -54,7 +54,7 @@ public class UploadTestPhoto extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-            getServletContext().getRequestDispatcher("/index.html").forward(
+            getServletContext().getRequestDispatcher("/index2.html").forward(
                     request, response);
 
     }
