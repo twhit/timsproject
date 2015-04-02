@@ -1,31 +1,22 @@
-<!DOCTYPE html>
-<html>
+ <html>
 <head>
-<title>File Uploading Form</title>
+    <script type="text/javascript" src="jquery-1.6.2.min.js"></script>
 </head>
-<body>
-<h3>File Upload:</h3>
-Select a photo for part search: <br />
-<form action="UploadTestPhoto" method="post"
-                        enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<br />
-<input type="submit" value="Upload File" />
-</form>
-<form action="UploadPart" method="post"
-                        enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<br />
-Part Name:<br/>
-<input type="text" name="partName" />
-<br />
-Part Type:<br/>
-<input type="text" name="partType" />
-<br />
-Part Model Number:<br/>
-<input type="text" name="partModel" />
-<br />
-<input type="submit" value="Add Part"/>
-</form>
+
+<body>  
+
+
+<button id="json">json</button>
+
+<script type="text/javascript">
+    $('#json').click(function(){ 
+        alert('json');
+         $.getJSON("https://timsproject.herokuapp.com/rest/part",
+         function(data) {
+            alert(data);         
+          });   
+    });
+</script>
 </body>
+
 </html>

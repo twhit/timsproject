@@ -25,7 +25,6 @@ public class ListPartsCommand {
 				p.setType(rs.getString("type"));
 				p.setModelNum(rs.getString("modelNum"));
 				p.setFileName(rs.getString("fileName"));
-				p.setFile(rs.getBinaryStream("file"));
 				ret.add(p);
 			}
 		} catch (URISyntaxException e) {

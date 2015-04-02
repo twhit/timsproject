@@ -43,8 +43,6 @@ public class Services {
 	public Response browseSongs(@QueryParam("offset") int offset,
 			@QueryParam("count") int count) {
 		
-		//PythonInterpreter python = new PythonInterpreter();
-		//python.execfile("lists.py");
 		ListPartsCommand command = new ListPartsCommand();
 		ArrayList<Part> list = command.execute();
 		HashMap<String, Object> hm = new HashMap<String, Object>();
@@ -76,28 +74,7 @@ public class Services {
 		return Response.status(200).entity(partString).build();
 	}
 
-	// Add a part
-	@POST
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN  })
-	public Response createSongs(String payload) {
-		CreatePartCommand create = new CreatePartCommand();
-		Part p = null;
-		String i = "";
-		try {
-			p = mapper.readValue(payload, Part.class);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			Response.status(400).entity("could not read string").build();
-		}
-		try {
-			i = create.execute(p);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Response.status(500).build();
-		}
-		return Response.status(200).entity(i).build();
-	}
+	
 	// Update a part
 	@POST
 	@Path("{modelNum}")

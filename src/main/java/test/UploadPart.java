@@ -48,68 +48,32 @@ public class UploadPart extends HttpServlet {
 			List<FileItem> formItems = upload.parseRequest(request);
 			for (FileItem item : formItems) {
 			    if (item.isFormField()) {
-			        // Process regular form field
 			        String fieldname = item.getFieldName();
 			        if (fieldname.equals("partName")) partName = item.getString();
 			        if (fieldname.equals("partType")) partType = item.getString();
 			        if (fieldname.equals("partModel")) partModel = item.getString();
 			    } else {
-			        // Process form file field (input type="file").
 			        fileName = FilenameUtils.getName(item.getName());
 			        stream = item.getInputStream();
-			        
+			      
 			    }
 			}
-			//String msg = FaceFinder.findFace(fileName, stream, 1);String uploadedFileLocation = "/images/" + fileDetail.getFileName();
-			 
-			// save it
-		//	String uploadedFileLocation = "images/" + fileName;
 			
-		//	writeToFile(stream, uploadedFileLocation);
-
 			Part p = new Part();
-			p.setFile(stream);
 			p.setName(partName);
 			p.setType(partType);
 			p.setModelNum(partModel);
 			p.setFileName(fileName);
 			
 			CreatePartCommand cmd = new CreatePartCommand();
-			cmd.execute(p);
-			
-			
-			//String msg = FaceFinder.findFace(fileName, stream, 1);
+			cmd.execute(p, stream);
 			
 		} catch (FileUploadException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
             getServletContext().getRequestDispatcher("/index.jsp").forward(
                     request, response);
 
     }
-
-//save uploaded file to new location
-		private void writeToFile(InputStream uploadedInputStream,
-			String uploadedFileLocation) {
-	 
-			try {
-				OutputStream out = new FileOutputStream(new File(
-						uploadedFileLocation));
-				int read = 0;
-				byte[] bytes = new byte[1024];
-	 
-				out = new FileOutputStream(new File(uploadedFileLocation));
-				while ((read = uploadedInputStream.read(bytes)) != -1) {
-					out.write(bytes, 0, read);
-				}
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-	 
-				e.printStackTrace();
-			}
-	 
-		}
 }
 		

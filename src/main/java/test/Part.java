@@ -27,15 +27,9 @@ public class Part {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	public InputStream getFile() {
-		return file;
-	}
-	public void setFile(InputStream file) {
-		this.file = file;
-	}
+	
 	String name;
 	String type;
 	String modelNum;
-	InputStream file;
 	String fileName;
 }
