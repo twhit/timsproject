@@ -1,22 +1,21 @@
- <html>
+<!DOCTYPE html>
+<html>
 <head>
-    <script type="text/javascript" src="jquery-1.6.2.min.js"></script>
-</head>
-
-<body>  
-
-
-<button id="json">json</button>
-
-<script type="text/javascript">
-    $('#json').click(function(){ 
-        alert('json');
-         $.getJSON("https://timsproject.herokuapp.com/rest/part",
-         function(data) {
-            alert(data);         
-          });   
-    });
+<script src="http://code.jquery.com/jquery-latest.min.js">
+	
 </script>
+<script>
+	$(document).ready(function() {
+		$.getJSON("https://timsproject.herokuapp.com/rest/part", function(dat) {
+			var parts = dat['data'];
+			$.each(parts, function(count, obj) {
+				document.write("<p>Model Number: " + obj['modelNum'] + " Part Name: " + obj['name'] + " Part Type: " + obj['type'] + "</p>");
+				document.write("<img src=\"http://localhost:8080/timsproject/rest/image/inline/" + obj['fileName'] + "\"><br/>");
+			})
+		});
+	});
+</script>
+</head>
+<body>
 </body>
-
 </html>
