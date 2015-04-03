@@ -35,7 +35,28 @@ public class ListPartsCommand {
 		return ret;
 	}
 	
-	
+	public Part executeByModel(String modelNum) {
+		Part p = new Part();
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+			PreparedStatement stmt = connection
+					.prepareStatement("SELECT * FROM Parts WHERE modelNum = ?");
+			stmt.setString(1, modelNum);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				p.setName(rs.getString("name"));
+				p.setType(rs.getString("type"));
+				p.setModelNum(rs.getString("modelNum"));
+				p.setFileName(rs.getString("fileName"));
+			}
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return p;
+	}		
+
 	public ArrayList<Part> executeByName(String name) {
 		ArrayList<Part> ret = new ArrayList<Part>();
 		try {
@@ -49,6 +70,7 @@ public class ListPartsCommand {
 				p.setName(rs.getString("name"));
 				p.setType(rs.getString("type"));
 				p.setModelNum(rs.getString("modelNum"));
+				p.setFileName(rs.getString("fileName"));
 				ret.add(p);
 			}
 		} catch (URISyntaxException e) {
@@ -72,6 +94,7 @@ public class ListPartsCommand {
 				p.setName(rs.getString("name"));
 				p.setType(rs.getString("type"));
 				p.setModelNum(rs.getString("modelNum"));
+				p.setFileName(rs.getString("fileName"));
 				ret.add(p);
 			}
 		} catch (URISyntaxException e) {
@@ -81,5 +104,28 @@ public class ListPartsCommand {
 		}
 		return ret;
 	}
-
+	
+	public ArrayList<Part> executeByFileName(String fn) {
+		ArrayList<Part> ret = new ArrayList<Part>();
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+			PreparedStatement stmt = connection
+					.prepareStatement("SELECT * FROM Parts WHERE filename = ?");
+			stmt.setString(1, fn);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Part p = new Part();
+				p.setName(rs.getString("name"));
+				p.setType(rs.getString("type"));
+				p.setModelNum(rs.getString("modelNum"));
+				p.setFileName(rs.getString("fileName"));
+				ret.add(p);
+			}
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
 }

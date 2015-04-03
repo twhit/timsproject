@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="http://code.jquery.com/jquery-latest.min.js">
+	
+</script>
+
+<script>
+	$(document).ready(function() {
+		$.getJSON("http://localhost:8080/timsproject/rest/part", function(dat) {
+			var parts = dat['data'];
+			document.write("<a href=\"index.html\">Back to Home Page</a><br/><br/>");
+			$.each(parts, function(count, obj) {
+				document.write("<p>Model Number: " + obj['modelNum'] + "<br />Part Name: " + obj['name'] + "<br />Part Type: " 
+						+ obj['type'] + "</p>");
+				document.write("<form action=\"http://localhost:8080/timsproject/rest/image/inline/" 
+						+ obj['fileName'] + "\" target=\"_blank\"><input type=\"submit\" value=\"Show Part\"></form><br/>" );
+			})
+		});
+	});
+</script>
+</head>
+<body>
+</body>
+</html>

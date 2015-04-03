@@ -13,25 +13,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
-import java.util.List;
-import java.util.Map;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import test.Part;
-import test.CreatePartCommand;
-import test.GetPartCommand;
 import test.ListPartsCommand;
 import test.UpdatePartCommand;
 import test.Constants;
-import test.DeletePartCommand;
-
-import org.python.util.PythonInterpreter; 
-import org.python.core.*; 
+import test.DeleteCommand;
 
 @Path("part")
 public class Services {
@@ -40,7 +28,7 @@ public class Services {
 	// Browse all parts
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response browseSongs(@QueryParam("offset") int offset,
+	public Response browseParts(@QueryParam("offset") int offset,
 			@QueryParam("count") int count) {
 		
 		ListPartsCommand command = new ListPartsCommand();
@@ -58,45 +46,19 @@ public class Services {
 		return Response.status(200).entity(partString).build();
 	}
 	
-	
 	// get part by model number
 	@GET
 	@Path("{modelNum}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getSong(@PathParam("modelNum") String modelNum) {
-		GetPartCommand command = new GetPartCommand();
+	public Response getPart(@PathParam("modelNum") String modelNum) {
+		ListPartsCommand command = new ListPartsCommand();
 		String partString = null;
 		try {
-			partString = mapper.writeValueAsString(command.execute(modelNum));
+			partString = mapper.writeValueAsString(command.executeByModel(modelNum));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return Response.status(200).entity(partString).build();
-	}
-
-	
-	// Update a part
-	@POST
-	@Path("{modelNum}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN  })
-	public Response updateSongs(String payload, @PathParam("modelNum") String modelNum) {
-		UpdatePartCommand update = new UpdatePartCommand();
-		Part p = null;
-		try {
-			p = mapper.readValue(payload, Part.class);
-			p.setModelNum(modelNum);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			Response.status(400).entity("could not read string").build();
-		}
-		try {
-			update.execute(p);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Response.status(500).build();
-		}
-		return Response.status(200).build();
 	}
 	
 	// Search parts by name by adding /name/{name} to url
@@ -141,12 +103,56 @@ public class Services {
 		return Response.status(200).entity(partString).build();
 	}
 	
+	@GET
+	@Path("filename/{filename}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getPartsByFileName(@PathParam("filename") String type, @QueryParam("offset") int offset,
+			@QueryParam("count") int count) {
+		ListPartsCommand command = new ListPartsCommand();
+		ArrayList<Part> list = command.executeByFileName(type);
+		HashMap<String, Object> hm = new HashMap<String, Object>();
+		hm.put(Constants.Pagination.DATA, list);
+		hm.put(Constants.Pagination.OFFSET, offset);
+		hm.put(Constants.Pagination.COUNT, count);
+		String partString = null;
+		try {
+			partString = mapper.writeValueAsString(hm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(200).entity(partString).build();
+	}
+
+	// Update a part
+	@POST
+	@Path("{modelNum}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN  })
+	public Response updateParts(String payload, @PathParam("modelNum") String modelNum) {
+		UpdatePartCommand update = new UpdatePartCommand();
+		Part p = null;
+		try {
+			p = mapper.readValue(payload, Part.class);
+			p.setModelNum(modelNum);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Response.status(400).entity("could not read string").build();
+		}
+		try {
+			update.execute(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Response.status(500).build();
+		}
+		return Response.status(200).build();
+	}
+	
 	@DELETE
 	@Path("{modelNum}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	public Response deletePart(@PathParam("modelNum") String modelNum) {
-		DeletePartCommand command = new DeletePartCommand();
+		DeleteCommand command = new DeleteCommand();
 		String s = "";
 		try {
 			s = command.execute(modelNum);

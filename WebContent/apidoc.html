@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>File Uploading Form</title>
+</head>
+<body>
+
+<h2>REST API Methods and Notes:</h2>
+<div class="doc">
+This web application features two database tables:<br />
+
+<h3>Table PARTS:</h3>
+	name (text): Name of the part.<br />
+	type (text): Type of the part.<br />
+	modelnum (text): Model Number of the part.<br />
+	filename (text): Name of the .png file that holds a picture of the part
+		in the IMAGES table.<br />
+		
+<h3>Table IMAGES:</h3>
+	filename (text): Name of the .png file uploaded to the database.<br />
+	file (bytea): Byte array which stores the image file.<br /><br />
+	
+The following section will refer to the URL base path as (BASE_PATH).<br />
+This can be either http://locahost:8080/timsproject or https://timsproject.herokuapp.com
+depending on where the app is running. API GET calls return JSON.<br />
+
+<h3>AVAILABLE REST API METHODS:</h3>
+
+<h4>GET</h4>
+(BASE_PATH)/rest/part: List all parts from the PARTS table.<br />
+(BASE_PATH)/rest/part/{modelNum}: Find part by model number.<br />
+(BASE_PATH)/rest/part/name/{name}: Find part by name.<br />
+(BASE_PATH)/rest/part/type/{type}: Find part(s) by type.<br />
+(BASE_PATH)/rest/part/filename/{filename}: Find part by file name.<br />
+(BASE_PATH)/rest/image/download/{filename}: Download a file from IMAGES table.<br />
+(BASE_PATH)/rest/image/inline/{filename}: Display an image from the IMAGES table.<br />
+
+<h4>POST</h4>
+(BASE_PATH)/rest/part/{modelNum}: Update part name, or type. Does not allow
+	change to moel number or file name. Takes raw JSON.<br />
+ 
+ Note: Adding a part and image is done through a POST request in the 
+ web app's multipart form on the home page rather than a RESTful API call.<br />
+ 
+<h4>DELETE</h4>
+(BASE_PATH)/rest/part/{modelNum}: Deletes the part with specified model number
+from PARTS table, as well as the corresponding file (by file name) from the
+IMAGES table.<br /><br />
+</div>
+<a href="index.html">Return to Main</a>
+</body>
+</html>

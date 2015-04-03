@@ -26,8 +26,6 @@ import org.apache.commons.io.IOUtils;
 import javax.servlet.annotation.WebServlet;
 
 import test.PartFinder;
-//import org.springframework.context.ApplicationContext;
-//import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class UploadFile
@@ -62,15 +60,16 @@ public class UploadTestPhoto extends HttpServlet {
 			pw.println("<html>");
 			pw.println("<head>");
 			pw.println("<title>Part Match</title>");
+			pw.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">");
 			pw.println("</head>");
 			pw.println("<body>");
 			pw.println("<p></p>");
 			pw.println("<p></p>");
 			pw.println("<br/>Part Name = " + p.getName());
-			pw.println("<br/>Part Type = " + p.getType());
-			pw.println("<br/>Model Number = " + p.getModelNum());
-			pw.println("<br/><form action=\"https://timsproject.herokuapp.com/rest/image/inline/" + p.getFileName() + "\" target=\"_blank\"><input type=\"submit\" value=\"Show Part\"></form>" );
-			pw.println("<br/><img src=\"https://timsproject.herokuapp.com/rest/image/inline/" + p.getFileName() + "\">");
+			pw.println("<br/><br />Part Type = " + p.getType());
+			pw.println("<br/><br />Model Number = " + p.getModelNum());
+			pw.println("<br/><br /><img src=\"https://timsproject.herokuapp.com/rest/image/inline/" + p.getFileName() + "\">");
+			pw.println("<br/><br /><a href=\"index.html\">Back</a>");
 			pw.println("</body>");
 			pw.println("</html>");
 		} catch (FileUploadException e) {

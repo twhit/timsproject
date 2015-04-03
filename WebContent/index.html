@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="style.css">
 <title>File Uploading Form</title>
 </head>
 <body>
-<h3>File Upload:</h3>
-Select a photo for part search: <br />
+<h1>Part Finder: Compare Images</h1><br />
+<a href="listparts.html">Show Part List</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="apidoc.html">API Methods</a>
+<h3>Photo Upload:</h3>
+Select a photo for part search in the database: <br /><br />
 <form action="UploadTestPhoto" method="post"
                         enctype="multipart/form-data">
 <input type="file" name="file" size="50" />
-<br />
-<input type="submit" value="Upload File" />
+<br /><br />
+<input type="submit" value="Check Photo" />
 </form>
-<br/><br/>
+<h3>Part Upload:</h3>
+Select a photo and enter part information to add to database: <br /><br />
 <form action="UploadPart" method="post"
                         enctype="multipart/form-data">
 <input type="file" name="file" size="50" />
-<br />
-Part Name:<br/>
-<input type="text" name="partName" />
-<br />
-Part Type:<br/>
+<br /><br/>
+Part Name:&nbsp;
+<input type="text" name="partName" />&nbsp;&nbsp;
+Part Type:&nbsp;
 <input type="text" name="partType" />
-<br />
+<br /><br />
 Part Model Number:<br/>
 <input type="text" name="partModel" />
-<br />
+<br /><br />
 <input type="submit" value="Add Part"/>
 </form>
+<br />
 </body>
 </html>

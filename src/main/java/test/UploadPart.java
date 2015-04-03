@@ -71,7 +71,7 @@ public class UploadPart extends HttpServlet {
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
-            getServletContext().getRequestDispatcher("/index.jsp").forward(
+            getServletContext().getRequestDispatcher("/index.html").forward(
                     request, response);
 
     }
